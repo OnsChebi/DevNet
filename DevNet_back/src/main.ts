@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import {ValidationPipe}from "@nestjs/common";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   app.setGlobalPrefix("api/");//sets a global route prefix for all endpoints
   app.useGlobalPipes(
     new ValidationPipe({//wher pipe is configured
