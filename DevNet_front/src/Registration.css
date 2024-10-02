@@ -1,0 +1,22 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: sans-serif; /* Add your desired font */
+}
+
+.background {
+    background-image: url('https://www.intelligentdatacentres.com/wp-content/uploads/sites/34/2023/10/AdobeStock_636921466-w-600x344.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.backdrop-blur-md {
+    backdrop-filter: blur(1px); /* Adjust the blur effect as desired */
+}
