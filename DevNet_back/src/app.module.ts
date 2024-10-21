@@ -5,6 +5,10 @@ import {TypeOrmModule} from '@nestjs/typeorm';
 import {ConfigModule} from '@nestjs/config';
 import { PostsModule } from './posts/posts.module';
 import { Post } from './posts/entities/post.entity';
+import { AuthModule } from './auth/auth.module';
+import { User } from './user/user.entity';
+
+
 @Module({
   imports: [
     ConfigModule.forRoot(), // to load the env variables
@@ -15,9 +19,12 @@ import { Post } from './posts/entities/post.entity';
       username: process.env.DB_USERNAME || 'root',
       password:process.env.DB_PASSWORD,
       database:process.env.DB_NAME,
-      entities:[Post],
+      entities:[Post,User],
       synchronize:true,
-    }), PostsModule
+    }),
+    TypeOrmModule.forFeature([User, Post]),
+    PostsModule, // Include your posts module
+    AuthModule,  // Include your auth module
   ],
   controllers: [AppController],
   providers: [AppService],
