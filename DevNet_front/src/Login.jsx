@@ -23,7 +23,7 @@ const Login = () => {
             try {
                 // Handle form submission here
                 console.log("Form data", values);
-                const response = await axios.post("http://localhost:3000/auth/login", values);
+                const response = await axios.post("http://localhost:3000/api/auth/login", values);
                 console.log("Login response", response.data);
                 // Optionally handle successful login (e.g., redirect, store tokens)
             } catch (error) {
