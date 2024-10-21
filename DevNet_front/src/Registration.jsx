@@ -31,10 +31,8 @@ const Registration = () => {
                     password_confirmation: values.password_confirmation,
                 });
                 console.log("Registration successful:", response.data);
-                // You can redirect or show a success message here
             } catch (error) {
                 console.error("Registration error:", error.response ? error.response.data : error.message);
-                // You can show an error message to the user here
             }
         },
     });

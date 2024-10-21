@@ -5,12 +5,24 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   email: string;
 
-  @Column()
+  @Column({ nullable: true })
   password: string;
 
   @Column({ default: 'user' })
   role: string;
+
+  @Column({ nullable: true })
+  oauthProvider: string;
+
+  @Column({ nullable: true })
+  oauthId: string;
+
+  @Column({ nullable: true })
+  accessToken: string;
+
+  @Column({ nullable: true })  // Add this field for GitHub username
+  username: string;
 }
