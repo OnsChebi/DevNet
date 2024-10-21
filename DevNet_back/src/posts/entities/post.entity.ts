@@ -1,15 +1,18 @@
-import {Entity, ManyToOne,CreateDateColumn,PrimaryGeneratedColumn,Column} from 'typeorm';
+import {Entity, ManyToOne,DeleteDateColumn,CreateDateColumn,PrimaryGeneratedColumn,Column} from 'typeorm';
 @Entity('posts')
 export class Post {
     @PrimaryGeneratedColumn()
     id:number;
-    @Column()
+    @Column({ type: 'text'})
     content:string;
     // @ManyToOne(()=>User , (user)=>user.posts)
     // user:User;
-    @Column()
+    @Column({ default: 0 })
     likes: number;
 
     @CreateDateColumn()
     createdAt: Date;
+
+    @DeleteDateColumn()
+  deletedAt: Date;
 }
