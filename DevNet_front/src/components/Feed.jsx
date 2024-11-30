@@ -46,12 +46,12 @@ const Feed = () => {
   return (
     <div>
       <div className="flex flex-col h-screen">
-        <Navbar />
+       
         {/* <div className="sidebar">
           <Sidebar />
         </div> */}
         <div className="container flex justify-center mt-10">
-  <div className="card bg-gray-800 w-full sm:w-3/4 lg:w-1/2 shadow-xl">
+  <div className="card bg-gray-400 w-full sm:w-3/4 lg:w-1/2 shadow-xl">
     <div className="card-body">
       <div className="flex flex-col">
         <div className="flex items-start gap-4">

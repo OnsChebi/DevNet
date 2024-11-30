@@ -1,23 +1,42 @@
-
-import './App.css'
-import Registration from './Registration'
-import Login from './Login'
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Feed from './components/Feed'
+import './App.css';
+import Feed from './components/Feed';
+import Registration from './Registration';
+import Login from './Login';
+import Navbar from './components/Navbar'; // Import Navbar
 
 function App() {
+  // Theme state and toggle logic
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme); // Save theme preference
+  }, [theme]);
+
+  const handleThemeSwitch = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
 
   return (
     <Router>
-            <Routes>
-            <Route path="/" element={<Login />} />
-                <Route path="/register" element={<Registration />} />
-    {/* <Feed/> */}
-                <Route path="/login" element={<Login />} />
-            </Routes>
-        </Router>
-  )
+      {/* Navbar is rendered outside of Routes to make it visible on all pages */}
+      <Navbar theme={theme} onThemeToggle={handleThemeSwitch} />
+      <div className="app-container">
+        {/* Routes define the components rendered for specific paths */}
+        <Routes>
+          <Route path="/" element={<Feed />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
