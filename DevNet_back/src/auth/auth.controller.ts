@@ -1,10 +1,11 @@
-import { Controller, Post, Body, Request, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Request, UseGuards, Get, Req } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   //the login method
   @Post('login')
@@ -28,4 +29,30 @@ export class AuthController {
   async protected(@Request() req) {
     return req.user;
   }
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  async googleLogin() {
+    // Initiates Google OAuth login
+  }
+
+  @Get('google/callback')
+  @UseGuards(AuthGuard('google'))
+  async googleLoginCallback(@Req() req) {
+    // Handles the Google OAuth callback
+    return req.user;
+  }
+
+  @Get('github')
+  @UseGuards(AuthGuard('github'))
+  async githubLogin() {
+    // Initiates GitHub OAuth login
+  }
+
+  @Get('github/callback')
+  @UseGuards(AuthGuard('github'))
+  async githubLoginCallback(@Req() req) {
+    // Handles the GitHub OAuth callback
+    return req.user;
+  }
+
 }
