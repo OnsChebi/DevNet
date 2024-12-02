@@ -78,6 +78,7 @@ const Feed = () => {
                 <Post
                   key={post.id}
                   id={post.id}
+                  username={post.username}
                   content={post.content}
                   likes={post.likes}
                   createdAt={post.createdAt}
