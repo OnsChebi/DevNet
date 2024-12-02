@@ -39,8 +39,8 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
   };
 
   return (
-    <div className="container flex justify-center my-4">
-      <div className="card bg-gray-300 dark:bg-blue-gray-900 text-black dark:text-gray-100 w-full lg:w-1/2 shadow-xl p-4">
+    <div className="container flex justify-center  my-4">
+      <div className="card bg-gray-300 dark:bg-blue-gray-900 text-black dark:text-gray-100 w-full lg:w-1/2 md:w-3/4 shadow-xl p-5">
         <div className="flex justify-between items-start">
           {/******************** User Profile  *******************/}
           <div className="flex items-start gap-4">
@@ -83,7 +83,7 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
           </div>
         </div>
 
-        {/* Post Content */}
+        {/***********Post Content************* */}
         <div className="mt-4">
           {isEditing ? (
             <div>
@@ -117,7 +117,7 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
         {/* *******************Like Button*********************** */}
         <div className="flex  mt-4 border-t pt-2">
           <button
-            className="flex items-center gap-2 flex-1 hover:bg-gray-200 dark:hover:bg-gray-800 p-2"
+            className="flex flex-auto ml-3 items-center gap-2  hover:bg-gray-200 dark:hover:bg-gray-800 p-2"
             onClick={addLikes}
           >
             <svg

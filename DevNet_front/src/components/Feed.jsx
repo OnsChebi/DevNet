@@ -44,7 +44,7 @@ const Feed = () => {
     <div className="bg-gray-300 dark:bg-black h-screen mt-5">
       <div className="flex   flex-col h-screen">
         <div className="container flex justify-center ">
-          <div className="card bg-gray-100 dark:bg-blue-gray-900 text-black dark:text-gray-100 w-full lg:w-1/2   shadow-xl">
+          <div className="card bg-gray-100 dark:bg-blue-gray-900 text-black dark:text-gray-100 w-full lg:w-1/2 md:w-3/4   shadow-xl">
             <div className="card-body">
               <div className="flex-col">
               <div className="flex items-start gap-4">
@@ -69,10 +69,8 @@ const Feed = () => {
           </div>
         </div>
       </div>
-      
-      </div>
-      <div className="container flex justify-center mt-4">
-          <div className=" flex-col flex gap-4 w-1/2 p-4">
+      <div className="container flex  justify-center ">
+          <div className=" flex-col flex gap-4  p-4">
             {posts.length > 0 ? (
               posts.map((post) => (
                 <Post
@@ -91,6 +89,8 @@ const Feed = () => {
           </div>
         </div>
       </div> 
+      
+      </div>
     
   );
 };
