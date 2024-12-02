@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import Sidebar from "./Sidebar";
 import Post from "./Post";
 import axios from "axios";
 
 const Feed = () => {
-  //setting up the state for posts
   const [posts, setPosts] = useState([]);
   const [newPost, setnewPost] = useState("");
 
@@ -14,7 +11,7 @@ const Feed = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios("http://localhost:3000/api/posts");
-        //console.log(response.data);
+        console.log(response.data);
         setPosts(response.data);
       } catch (error) {
         console.error("Error feching posts: ", error);
@@ -22,6 +19,7 @@ const Feed = () => {
     };
     fetchPosts();
   }, []);
+
   const handlePostSubmit = async () => {
     try {
       const response = await axios.post("http://localhost:3000/api/posts", {
@@ -41,42 +39,39 @@ const Feed = () => {
       console.error("Error deleting the post", error);
     }
   };
-  
 
   return (
-    <div>
-      <div className="flex flex-col h-screen">
-       
-        {/* <div className="sidebar">
-          <Sidebar />
-        </div> */}
-        <div className="container flex justify-center mt-10">
-  <div className="card bg-gray-400 w-full sm:w-3/4 lg:w-1/2 shadow-xl">
-    <div className="card-body">
-      <div className="flex flex-col">
-        <div className="flex items-start gap-4">
-          <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-          <div className="flex flex-col gap-4 w-full">
-            <textarea
-              type="text"
-              placeholder="What do you have in mind?"
-              className="input input-bordered input-info w-full h-24 sm:h-20 lg:h-24 mb-4 resize-none"
-              value={newPost}
-              onChange={(e) => setnewPost(e.target.value)}
-            ></textarea>
+    <div className="bg-gray-300 dark:bg-black h-screen mt-5">
+      <div className="flex   flex-col h-screen">
+        <div className="container flex justify-center ">
+          <div className="card bg-gray-100 dark:bg-blue-gray-900 text-black dark:text-gray-100 w-full lg:w-1/2   shadow-xl">
+            <div className="card-body">
+              <div className="flex-col">
+              <div className="flex items-start gap-4">
+                <div className="skeleton h-20 w-20  rounded-full"></div>
+                <textarea
+                  type="text"
+                  placeholder="What do you have in mind?"
+                  className="input input-bordered  bg-gray-300 dark:bg-black input-primary w-full h-16 sm:h-10 lg:h-24 m-0 "
+                  value={newPost}
+                  onChange={(e) => setnewPost(e.target.value)}
+                ></textarea>
+              </div>
+            </div>
+            <div className="card-actions justify-end">
+              <button
+                className="btn btn-outline btn-primary"
+                onClick={handlePostSubmit}
+              >
+                Post
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div className="card-actions justify-end">
-        <button className="btn btn-outline btn-info" onClick={handlePostSubmit}>
-          Post
-        </button>
+      
       </div>
-    </div>
-  </div>
-</div>
-
-        <div className="container flex justify-center mt-4">
+      <div className="container flex justify-center mt-4">
           <div className=" flex-col flex gap-4 w-1/2 p-4">
             {posts.length > 0 ? (
               posts.map((post) => (
@@ -87,7 +82,6 @@ const Feed = () => {
                   likes={post.likes}
                   createdAt={post.createdAt}
                   handleDelete={handleDelete}
-                  
                 />
               ))
             ) : (
@@ -95,8 +89,8 @@ const Feed = () => {
             )}
           </div>
         </div>
-      </div>
-    </div>
+      </div> 
+    
   );
 };
 

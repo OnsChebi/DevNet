@@ -7,6 +7,8 @@ import { PostsModule } from './posts/posts.module';
 import { Post } from './posts/entities/post.entity';
 import { AuthModule } from './auth/auth.module';
 import { User } from './user/user.entity';
+import { CommentsModule } from './comments/comment.module';
+import { Comment } from './comments/comment.entity';
 
 
 @Module({
@@ -23,9 +25,10 @@ import { User } from './user/user.entity';
      autoLoadEntities: true,
       synchronize:true,
     }),
-    TypeOrmModule.forFeature([User, Post]),
-    PostsModule, // Include your posts module
-    AuthModule,  // Include your auth module
+    TypeOrmModule.forFeature([User, Post,Comment]),
+    PostsModule, 
+    AuthModule, 
+    CommentsModule
   ],
   controllers: [AppController],
   providers: [AppService],

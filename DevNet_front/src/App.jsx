@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Feed from './components/Feed';
-import Registration from './Registration';
-import Login from './Login';
-import Navbar from './components/Navbar'; // Import Navbar
+import Registration from './components/Registration';
+import Login from './components/Login';
+import Navbar from './components/Navbar'; 
 
 function App() {
   // Theme state and toggle logic
@@ -30,7 +30,7 @@ function App() {
       <div className="app-container">
         {/* Routes define the components rendered for specific paths */}
         <Routes>
-          <Route path="/" element={<Feed />} />
+          <Route path="/" element={<Feed/>} />
           <Route path="/register" element={<Registration />} />
           <Route path="/login" element={<Login />} />
         </Routes>
