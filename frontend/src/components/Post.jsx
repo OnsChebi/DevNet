@@ -39,8 +39,8 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
   };
 
   return (
-    <div className="container flex justify-center  my-4">
-      <div className="card bg-gray-300 dark:bg-blue-gray-900 text-black dark:text-gray-100 w-full lg:w-1/2 md:w-3/4 shadow-xl p-5">
+    <div className="container flex justify-center  my-1">
+      <div className="card bg-gray-100 dark:bg-blue-gray-900 text-black dark:text-gray-100 w-full max-w-lg md:max-w-3xl shadow-lg p-5">
         <div className="flex justify-between items-start">
           {/******************** User Profile  *******************/}
           <div className="flex items-start gap-4">
@@ -176,7 +176,7 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
             <div className="flex items-center gap-2 mt-2">
               <input
                 type="text"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-gray-300 dark:bg-black"
                 placeholder="Add a comment..."
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
