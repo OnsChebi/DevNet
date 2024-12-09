@@ -1,5 +1,5 @@
 {
-  "name": "devnet-front",
+  "name": "frontend",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -14,8 +14,8 @@
     "@material-tailwind/react": "^2.1.10",
     "axios": "^1.7.7",
     "daisyui": "^4.12.12",
-    "devnet-front": "file:",
     "formik": "^2.4.6",
+    "frontend": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
@@ -34,6 +34,7 @@
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
     "postcss": "^8.4.47",
+    "rollup": "^4.28.1",
     "tailwindcss": "^3.4.13",
     "vite": "^5.4.1"
   }
