@@ -21,7 +21,10 @@ const Feed = () => {
   }, []);
 
   const handlePostSubmit = async () => {
-    try {
+    if(newPost.trim()){
+      try {
+        alert("Input should not be empty");
+        console.log(alert)
       const response = await axios.post("http://localhost:3000/api/posts", {
         content: newPost,
       });
@@ -30,6 +33,7 @@ const Feed = () => {
     } catch (err) {
       console.error("Error posting new post", err);
     }
+  }
   };
 
   const handleDelete = async (id) => {
@@ -42,13 +46,13 @@ const Feed = () => {
   };
 
   return (
-    <div className="bg-gray-300 dark:bg-black min-h-screen overflow-hidden">
+    <div className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen overflow-hidden">
       {/* Post creation area */}
       <div className="flex flex-col items-center px-4 py-5">
-        <div className="card w-full max-w-lg md:max-w-3xl bg-gray-100 dark:bg-blue-gray-900 text-black dark:text-gray-100 shadow-lg rounded-lg p-4">
+        <div className="card w-full max-w-lg md:max-w-3xl bg-white dark:bg-gray-800 text-black dark:text-gray-100 shadow-lg rounded-lg p-4">
           <div className="flex flex-col gap-4">
-            <div className="flex items-start gap-4">
-              <div className="skeleton h-16 w-16 rounded-full"></div>
+            <div className="flex items-center justify-center gap-4">
+              <div className="bg-black size-16 rounded-full"></div>
               <textarea
                 type="text"
                 placeholder="What do you have in mind?"

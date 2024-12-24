@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 
 const Navbar = ({ theme, onThemeToggle }) => {
@@ -15,9 +16,9 @@ const Navbar = ({ theme, onThemeToggle }) => {
       <div className="navbar bg-[#0d49ca] text-white">
         {/******************** Logo ********************/}
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl text-black dark:text-white">
+          <Link to="/" className="btn btn-ghost text-xl text-black dark:text-white">
             DevNet
-          </a>
+          </Link>
         </div>
 
         {/******************** Mobile Menu Button ********************/}
@@ -144,10 +145,10 @@ const Navbar = ({ theme, onThemeToggle }) => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a className="justify-between">Profile</a>
+                <Link to="/profile" className="justify-between">Profile</Link>
               </li>
               <li>
-                <a>Logout</a>
+              <Link className="justify-between">Logout</Link>
               </li>
             </ul>
           </div>

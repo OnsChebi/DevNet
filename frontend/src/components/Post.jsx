@@ -40,7 +40,7 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
 
   return (
     <div className="container flex justify-center  my-1">
-      <div className="card bg-gray-100 dark:bg-blue-gray-900 text-black dark:text-gray-100 w-full max-w-lg md:max-w-3xl shadow-lg p-5">
+      <div className="card bg-white dark:bg-gray-800 text-black dark:text-gray-100 w-full max-w-lg md:max-w-3xl shadow-lg p-5">
         <div className="flex justify-between items-start">
           {/******************** User Profile  *******************/}
           <div className="flex items-start gap-4">
