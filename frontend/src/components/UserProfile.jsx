@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaStar, FaUserEdit } from "react-icons/fa";
+import { FaStar, FaUserEdit, FaPlus } from "react-icons/fa";
 
 const UserProfile = () => {
   const [user, setUser] = useState({
@@ -21,6 +21,10 @@ const UserProfile = () => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [newProfilePicture, setNewProfilePicture] = useState(null);
+  const [newSkill, setNewSkill] = useState("");
+  const [newProject, setNewProject] = useState({ name: "", link: "" });
+  const [showSkillInput, setShowSkillInput] = useState(false); // For skill input visibility
+  const [showProjectInput, setShowProjectInput] = useState(false); // For project input visibility
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
@@ -48,6 +52,42 @@ const UserProfile = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleAddSkill = () => {
+    if (newSkill && !user.skills.includes(newSkill)) {
+      setUser({
+        ...user,
+        skills: [...user.skills, newSkill],
+      });
+      setNewSkill("");
+      setShowSkillInput(false); // Hide skill input after adding
+    }
+  };
+
+  const handleAddProject = () => {
+    if (newProject.name && newProject.link) {
+      setUser({
+        ...user,
+        projects: [...user.projects, newProject],
+      });
+      setNewProject({ name: "", link: "" });
+      setShowProjectInput(false); // Hide project input after adding
+    }
+  };
+
+  const handleDeleteSkill = (skillToDelete) => {
+    setUser({
+      ...user,
+      skills: user.skills.filter((skill) => skill !== skillToDelete),
+    });
+  };
+
+  const handleDeleteProject = (projectToDelete) => {
+    setUser({
+      ...user,
+      projects: user.projects.filter((project) => project !== projectToDelete),
+    });
   };
 
   return (
@@ -95,25 +135,64 @@ const UserProfile = () => {
 
         {/* Skills Section */}
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mt-6">
-          <h2 className="text-xl font-semibold">Skills</h2>
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-semibold">Skills</h2>
+            <button
+              onClick={() => setShowSkillInput(!showSkillInput)} // Toggle skill input visibility
+              className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
+            >
+              <FaPlus />
+            </button>
+          </div>
           <div className="flex flex-wrap gap-2 mt-4">
             {user.skills.map((skill, index) => (
               <span
                 key={index}
-                className="px-4 py-2 bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded-full text-sm shadow"
+                className="px-4 py-2 bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded-full text-sm shadow flex justify-between items-center"
               >
                 {skill}
+                <button
+                  onClick={() => handleDeleteSkill(skill)}
+                  className="ml-2 text-red-500 hover:text-red-600"
+                >
+                  &times;
+                </button>
               </span>
             ))}
           </div>
+          {showSkillInput && ( // Show input only if showSkillInput is true
+            <div className="mt-4">
+              <input
+                type="text"
+                value={newSkill}
+                onChange={(e) => setNewSkill(e.target.value)}
+                className="px-4 py-2 border rounded-lg"
+                placeholder="Add new skill"
+              />
+              <button
+                onClick={handleAddSkill}
+                className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg"
+              >
+                Add
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Projects Section */}
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mt-6">
-          <h2 className="text-xl font-semibold">Projects</h2>
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-semibold">Projects</h2>
+            <button
+              onClick={() => setShowProjectInput(!showProjectInput)} // Toggle project input visibility
+              className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
+            >
+              <FaPlus />
+            </button>
+          </div>
           <ul className="mt-4 space-y-3">
             {user.projects.map((project, index) => (
-              <li key={index}>
+              <li key={index} className="flex justify-between items-center">
                 <a
                   href={project.link}
                   target="_blank"
@@ -122,58 +201,87 @@ const UserProfile = () => {
                 >
                   {project.name}
                 </a>
+                <button
+                  onClick={() => handleDeleteProject(project)}
+                  className="text-red-500 hover:text-red-600"
+                >
+                  &times;
+                </button>
               </li>
             ))}
           </ul>
+          {showProjectInput && ( //bch input ma todhhr ken wa9t nklikiw 3l plus
+            <div className="mt-4">
+              <input
+                type="text"
+                value={newProject.name}
+                onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
+                className="px-4 py-2 border rounded-lg"
+                placeholder="Project Name"
+              />
+              <input
+                type="url"
+                value={newProject.link}
+                onChange={(e) => setNewProject({ ...newProject, link: e.target.value })}
+                className="mt-2 px-4 py-2 border rounded-lg"
+                placeholder="Project Link"
+              />
+              <button
+                onClick={handleAddProject}
+                className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg"
+              >
+                Add
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* Edit Profile Modal */}
+        {/* Editing Section */}
         {isEditing && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-              <h2 className="text-2xl font-semibold mb-4">Edit Profile</h2>
-              <form onSubmit={handleProfileUpdate}>
-                <div className="mb-4">
-                  <label className="block mb-2">Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    defaultValue={user.name}
-                    className="w-full px-4 py-2 border rounded-lg"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block mb-2">Bio</label>
-                  <textarea
-                    name="bio"
-                    defaultValue={user.bio}
-                    className="w-full px-4 py-2 border rounded-lg"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block mb-2">Profile Picture</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileUpload}
-                    className="w-full"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                >
-                  Save
-                </button>
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mt-6">
+            <form onSubmit={handleProfileUpdate}>
+              <div className="mb-4">
+                <label className="block mb-2">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  defaultValue={user.name}
+                  className="w-full px-4 py-2 border rounded-lg"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2">Bio</label>
+                <textarea
+                  name="bio"
+                  defaultValue={user.bio}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  rows="3"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2">Profile Picture</label>
+                <input
+                  type="file"
+                  onChange={handleFileUpload}
+                  className="w-full px-4 py-2 border rounded-lg"
+                />
+              </div>
+              <div className="flex justify-end space-x-4">
                 <button
                   type="button"
-                  onClick={handleEditToggle}
-                  className="ml-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+                  onClick={() => setIsEditing(false)}
+                  className="px-4 py-2 bg-gray-400 text-white rounded-lg"
                 >
                   Cancel
                 </button>
-              </form>
-            </div>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
           </div>
         )}
       </div>
