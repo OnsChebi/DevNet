@@ -30,7 +30,8 @@ function App() {
       <div className="app-container">
         {/* Routes define the components rendered for specific paths */}
         <Routes>
-          <Route path="/" element={<Feed/>} />
+          <Route path="/" element={<Login/>} />
+          <Route path="/feed" element={<Feed/>} />
           <Route path="/register" element={<Registration />} />
           <Route path="/login" element={<Login />} />
         </Routes>

@@ -24,7 +24,7 @@ const Login = () => {
         onSubmit: async (values) => {
             try {
                 console.log("Form data", values);
-                const response = await axios.post("http://localhost:3000/auth/login", values);
+                const response = await axios.post("http://localhost:3000/api/auth/login", values);
                 const { access_token } = response.data; // Extract token from response
 
                 console.log("Login response", response.data);
@@ -118,7 +118,7 @@ const Login = () => {
                         <button
                             aria-label="Login with Google"
                             type="button"
-                            onClick={() => window.location.href = 'http://localhost:3000/auth/google'}
+                            onClick={() => window.location.href = 'http://localhost:3000/api/auth/google'}
                             className="flex items-center justify-center w-full p-2 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-5 h-5 fill-current">
@@ -129,7 +129,7 @@ const Login = () => {
 
                         <button
                             aria-label="Login with GitHub"
-                            onClick={() => window.location.href = 'http://localhost:3000/auth/github'}
+                            onClick={() => window.location.href = 'http://localhost:3000/api/auth/github'}
                             className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-5 h-5 fill-current">

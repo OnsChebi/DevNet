@@ -6,7 +6,7 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [newPost, setnewPost] = useState("");
 
-  //post feching ml back
+  // Fetching posts from the backend
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -14,7 +14,7 @@ const Feed = () => {
         console.log(response.data);
         setPosts(response.data);
       } catch (error) {
-        console.error("Error feching posts: ", error);
+        console.error("Error fetching posts: ", error);
       }
     };
     fetchPosts();
@@ -28,9 +28,10 @@ const Feed = () => {
       setPosts((prevPosts) => [response.data, ...prevPosts]);
       setnewPost("");
     } catch (err) {
-      console.error("error posting new post", err);
+      console.error("Error posting new post", err);
     }
   };
+
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:3000/api/posts/${id}`);
@@ -41,26 +42,24 @@ const Feed = () => {
   };
 
   return (
-    <div className="bg-gray-300 dark:bg-black h-screen mt-5">
-      <div className="flex   flex-col h-screen">
-        <div className="container flex justify-center ">
-          <div className="card bg-gray-100 dark:bg-blue-gray-900 text-black dark:text-gray-100 w-full lg:w-1/2 md:w-3/4   shadow-xl">
-            <div className="card-body">
-              <div className="flex-col">
-              <div className="flex items-start gap-4">
-                <div className="skeleton h-20 w-20  rounded-full"></div>
-                <textarea
-                  type="text"
-                  placeholder="What do you have in mind?"
-                  className="input input-bordered  bg-gray-300 dark:bg-black input-primary w-full h-16 sm:h-10 lg:h-24 m-0 "
-                  value={newPost}
-                  onChange={(e) => setnewPost(e.target.value)}
-                ></textarea>
-              </div>
+    <div className="bg-gray-300 dark:bg-black min-h-screen overflow-hidden">
+      {/* Post creation area */}
+      <div className="flex flex-col items-center px-4 py-5">
+        <div className="card w-full max-w-lg md:max-w-3xl bg-gray-100 dark:bg-blue-gray-900 text-black dark:text-gray-100 shadow-lg rounded-lg p-4">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-start gap-4">
+              <div className="skeleton h-16 w-16 rounded-full"></div>
+              <textarea
+                type="text"
+                placeholder="What do you have in mind?"
+                className="input input-bordered bg-gray-300 dark:bg-black w-full h-20 rounded-lg p-2 resize-none"
+                value={newPost}
+                onChange={(e) => setnewPost(e.target.value)}
+              ></textarea>
             </div>
-            <div className="card-actions justify-end">
+            <div className="flex justify-end">
               <button
-                className="btn btn-outline btn-primary"
+                className="btn btn-outline  hover:bg-[#0d49ca] px-6 py-2 rounded-md"
                 onClick={handlePostSubmit}
               >
                 Post
@@ -69,29 +68,30 @@ const Feed = () => {
           </div>
         </div>
       </div>
-      <div className="container flex  justify-center ">
-          <div className=" flex-col flex gap-4  p-4">
-            {posts.length > 0 ? (
-              posts.map((post) => (
-                <Post
-                  key={post.id}
-                  id={post.id}
-                  username={post.username}
-                  content={post.content}
-                  likes={post.likes}
-                  createdAt={post.createdAt}
-                  handleDelete={handleDelete}
-                />
-              ))
-            ) : (
-              <div className="text-gray-600">No posts available</div> // Optional: message if no posts are found
-            )}
-          </div>
+
+      {/* Feed area */}
+      <div className="flex flex-col items-center px-4 py-5">
+        <div className="w-full max-w-lg md:max-w-3xl flex flex-col gap-4">
+          {posts.length > 0 ? (
+            posts.map((post) => (
+              <Post
+                key={post.id}
+                id={post.id}
+                username={post.username}
+                content={post.content}
+                likes={post.likes}
+                createdAt={post.createdAt}
+                handleDelete={handleDelete}
+              />
+            ))
+          ) : (
+            <div className="text-gray-600 text-center">
+              No posts available
+            </div>
+          )}
         </div>
-      </div> 
-      
       </div>
-    
+    </div>
   );
 };
 

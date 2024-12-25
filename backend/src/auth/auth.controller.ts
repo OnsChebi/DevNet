@@ -1,15 +1,24 @@
-import { Controller, Post, Body, Request, UseGuards, Get, Req } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import {
+  Controller,
+  Post,
+  Body,
+  Request,
+  UseGuards,
+  Get,
+  Req,
+} from '@nestjs/common';
+import { AuthService } from '../auth/auth.service';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
   //the login method
   @Post('login')
-  async login(@Body() body: { email: string, password: string }) {
+  async login(@Body() body: { email: string; password: string }) {
+    console.log('Received login request:', body);
     const user = await this.authService.validateUser(body.email, body.password);
     if (user) {
       return this.authService.login(user);
@@ -19,7 +28,7 @@ export class AuthController {
 
   //the register method
   @Post('register')
-  async register(@Body() body: { email: string, password: string }) {
+  async register(@Body() body: { email: string; password: string }) {
     return this.authService.register(body.email, body.password);
   }
 
@@ -32,14 +41,14 @@ export class AuthController {
   @Get('google')
   @UseGuards(AuthGuard('google'))
   async googleLogin() {
-    // Initiates Google OAuth login
+
   }
 
+  // Handles the Google OAuth callback after Google redirects the user back
   @Get('google/callback')
-  @UseGuards(AuthGuard('google'))
+  @UseGuards(AuthGuard('google'))  // Handles callback after Google authentication
   async googleLoginCallback(@Req() req) {
-    // Handles the Google OAuth callback
-    return req.user;
+    return req.user;  // Return the user information to the client
   }
 
   @Get('github')
@@ -54,5 +63,4 @@ export class AuthController {
     // Handles the GitHub OAuth callback
     return req.user;
   }
-
 }
