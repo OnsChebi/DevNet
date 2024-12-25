@@ -29,6 +29,17 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
     }
   };
 
+  const handleEdit = async () => {
+    try {
+      await axios.patch(`http://localhost:3000/api/posts/${id}`, {
+        content: updatedContent,
+      });
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating content", error);
+    }
+  };
+
   const toggleComments = () => setShowComments(!showComments);
 
   const addComment = () => {
@@ -39,10 +50,9 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
   };
 
   return (
-    <div className="container flex justify-center  my-1">
+    <div className="container flex justify-center my-1">
       <div className="card bg-white dark:bg-gray-800 text-black dark:text-gray-100 w-full max-w-lg md:max-w-3xl shadow-lg p-5">
         <div className="flex justify-between items-start">
-          {/******************** User Profile  *******************/}
           <div className="flex items-start gap-4">
             <div className="skeleton h-12 w-12 rounded-full bg-gray-500"></div>
             <div>
@@ -51,8 +61,7 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
             </div>
           </div>
 
-         
-          <div >
+          <div>
             <div className="dropdown dropdown-end">
               <button tabIndex={0} className="btn btn-sm btn-ghost">
                 <svg
@@ -83,7 +92,6 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
           </div>
         </div>
 
-        {/***********Post Content************* */}
         <div className="mt-4">
           {isEditing ? (
             <div>
@@ -92,32 +100,24 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
                 value={updatedContent}
                 onChange={(e) => setUpdatedContent(e.target.value)}
               />
-              <button
-                className="btn btn-primary btn-sm"
-                onClick={async () => {
-                  try {
-                    await axios.patch(`http://localhost:3000/api/posts/${id}`, {
-                      content: updatedContent,
-                    });
-                    setIsEditing(false);
-                  } catch (error) {
-                    console.error("Error updating content", error);
-                  }
-                }}
-              >
+              <button className="btn btn-primary btn-sm" onClick={handleEdit}>
                 Save
               </button>
-              <button className="btn btn-primary ml-2 btn-sm" onClick={() => setIsEditing(!isEditing)}> Cancel</button>
+              <button
+                className="btn btn-primary ml-2 btn-sm"
+                onClick={() => setIsEditing(!isEditing)}
+              >
+                Cancel
+              </button>
             </div>
           ) : (
             <div className="text-gray-900 dark:text-gray-100">{content}</div>
           )}
         </div>
 
-        {/* *******************Like Button*********************** */}
-        <div className="flex  mt-4 border-t pt-2">
+        <div className="flex mt-4 border-t pt-2">
           <button
-            className="flex flex-auto ml-3 items-center gap-2  hover:bg-gray-200 dark:hover:bg-gray-800 p-2"
+            className="flex flex-auto ml-3 items-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-800 p-2"
             onClick={addLikes}
           >
             <svg
@@ -136,7 +136,7 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
             </svg>
             {likes} {likes === 1 ? "Like" : "Likes"}
           </button>
-          {/* ************comment button************* */}
+
           <button
             className="flex items-center gap-2 flex-1 hover:bg-gray-200 dark:hover:bg-gray-800 p-2"
             onClick={toggleComments}
@@ -159,7 +159,6 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
           </button>
         </div>
 
-        {/********************  comments system***************** */}
         {showComments && (
           <div className="mt-4">
             {comments.map((comment, index) => (
@@ -167,7 +166,9 @@ const Post = ({ id, username, content, likes: initLikes, handleDelete, createdAt
                 <div className="skeleton h-8 w-8 rounded-full bg-gray-500"></div>
                 <div>
                   <div className="font-bold">{comment.username}</div>
-                  <div className="text-sm text-gray-500">{new Date(comment.date).toLocaleDateString()}</div>
+                  <div className="text-sm text-gray-500">
+                    {new Date(comment.date).toLocaleDateString()}
+                  </div>
                   <div>{comment.text}</div>
                 </div>
               </div>

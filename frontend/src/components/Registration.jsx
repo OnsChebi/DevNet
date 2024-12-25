@@ -56,7 +56,7 @@ const Registration = () => {
                             </label>
                             <div className="flex flex-col items-start">
                                 <input
-                                    placeholder="Donia@gmail.com"
+                                    
                                     type="email"
                                     name="email"
                                     onChange={formik.handleChange}
